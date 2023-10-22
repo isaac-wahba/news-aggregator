@@ -1,26 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import useFetchNYTArticles from './hooks/useFetchNYTArticles';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { articles, error, loading, copyRight } =
+    useFetchNYTArticles('mo salah');
+  if (articles) console.log(articles, error, copyRight, loading);
+
+  return <div className="App">Hey</div>;
 }
 
 export default App;
