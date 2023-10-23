@@ -1,8 +1,8 @@
 import './App.css';
 import useFetchAggregatedArticles from './hooks/useFetchArticles';
-import useFetchNYTArticles from './hooks/useFetchNYTArticles';
-import useFetchNewsApiArticles from './hooks/useFetchNewsApiArticles';
-import useFetchTheGardianArticles from './hooks/useFetchTheGardianArticles';
+import useFetchNYTArticles from './hooks/separate-api-calls/useFetchNYTArticles';
+import useFetchNewsApiArticles from './hooks/separate-api-calls/useFetchNewsApiArticles';
+import useFetchTheGardianArticles from './hooks/separate-api-calls/useFetchTheGardianArticles';
 import fetchNewsApiArticles from './services/data/fetchNewsApiArticles';
 import fetchNYTArticles from './services/data/fetchNytArticles';
 import fetchTheGardianArticles from './services/data/fetchTheGardianData';

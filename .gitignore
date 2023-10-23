@@ -26,6 +26,4 @@ yarn-error.log*
 # dev related files/ directories
 /src/apis
 response.js
-/src/hooks/useFetchNewsApiArticles.tsx
-/src/hooks/useFetchNYTArticles.tsx
-/src/hooks/useFetchTheGardianArticles.tsx
+/src/hooks/separate-api-calls
