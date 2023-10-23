@@ -1,4 +1,4 @@
-export interface Article {
+export interface NytArticle {
   web_url: string;
   snippet: string;
   lead_paragraph: string;
@@ -22,6 +22,6 @@ interface Byline {
 export interface NYTResponseData {
   copyright: string;
   response: {
-    docs: Article[];
+    docs: NytArticle[];
   };
 }

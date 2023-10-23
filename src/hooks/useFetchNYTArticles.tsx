@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import { nytKey, nytUrl } from '../apis/keys';
-import { Article, NYTResponseData } from '../types/responses/NYTResponseTypes';
+import { NYTResponseData } from '../types/responses/NYTResponseTypes';
 import { mapArticleToArticleType } from '../helpers/mapNYTArticles';
-import { ArticleType } from '../types/Types';
+import { Article } from '../types/Types';
 
 const useFetchNYTArticles = (
   searchQuery: string
 ): {
-  articles: ArticleType[] | null;
+  nytArticles: Article[] | null;
   copyRight: string | null;
-  loading: boolean;
-  error: Error | null;
+  isLoadingNytArticles: boolean;
+  errorLoadingNytArticles: Error | null;
 } => {
-  const [articles, setArticles] = useState<ArticleType[] | null>(null);
+  const [nytArticles, setNytArticles] = useState<Article[] | null>(null);
   const [copyRight, setCopyRight] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [isLoadingNytArticles, setLoading] = useState(false);
+  const [errorLoadingNytArticles, setErrorLoadingNytArticles] =
+    useState<Error | null>(null);
 
   useEffect(() => {
     setLoading(true);
-    setError(null);
+    setErrorLoadingNytArticles(null);
 
     const fullUrl = `${nytUrl}?q=${searchQuery}&api-key=${nytKey}`;
 
@@ -32,20 +33,25 @@ const useFetchNYTArticles = (
       })
       .then((responseData: NYTResponseData) => {
         setCopyRight(responseData.copyright);
-        const mappedArticles: ArticleType[] = responseData.response.docs.map(
+        const mappedArticles: Article[] = responseData.response.docs.map(
           (article) => mapArticleToArticleType(article)
         );
-        setArticles(mappedArticles);
+        setNytArticles(mappedArticles);
       })
       .catch((err) => {
-        setError(err);
+        setErrorLoadingNytArticles(err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, [searchQuery]);
 
-  return { articles, loading, error, copyRight };
+  return {
+    nytArticles,
+    isLoadingNytArticles,
+    errorLoadingNytArticles,
+    copyRight,
+  };
 };
 
 export default useFetchNYTArticles;

@@ -1,4 +1,4 @@
-export interface ArticleType {
+export interface Article {
   web_url: string;
   snippet: string;
   source: string;
