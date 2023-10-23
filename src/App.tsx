@@ -1,7 +1,11 @@
 import './App.css';
+import useFetchAggregatedArticles from './hooks/useFetchArticles';
 import useFetchNYTArticles from './hooks/useFetchNYTArticles';
 import useFetchNewsApiArticles from './hooks/useFetchNewsApiArticles';
 import useFetchTheGardianArticles from './hooks/useFetchTheGardianArticles';
+import fetchNewsApiArticles from './services/data/fetchNewsApiArticles';
+import fetchNYTArticles from './services/data/fetchNytArticles';
+import fetchTheGardianArticles from './services/data/fetchTheGardianData';
 
 function App() {
   // const {
@@ -41,6 +45,12 @@ function App() {
   //     errorLoadingTheGardianArticles,
   //     isLoadingTheGardianArticles
   //   );
+
+  const { articles, errors, isLoading } = useFetchAggregatedArticles(
+    'mo salah',
+    [fetchNYTArticles, fetchNewsApiArticles, fetchTheGardianArticles]
+  );
+  if (articles) console.log('articles', articles, errors, isLoading);
   return <div className="App">Hey</div>;
 }
 

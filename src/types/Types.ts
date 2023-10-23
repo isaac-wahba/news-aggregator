@@ -6,3 +6,7 @@ export interface Article {
   author: string;
   title: string;
 }
+
+export interface fetchArticlesResult {
+  articles: Article[] | null;
+}
