@@ -10,6 +10,7 @@ export interface TheGuardianArticle {
     headline: string;
     bodyText: string;
   };
+  sectionName: string;
   headline: string;
   trailText: string;
 }

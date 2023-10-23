@@ -11,6 +11,7 @@ export const mapTheGardianArticle = (
     pub_date: theGardianArticle.webPublicationDate,
     author: theGardianArticle.fields.byline,
     title: theGardianArticle.fields.headline,
+    category: theGardianArticle.sectionName,
   };
 
   return article;

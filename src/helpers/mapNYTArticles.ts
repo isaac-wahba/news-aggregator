@@ -15,6 +15,7 @@ export const mapArticleToArticleType = (nytArticle: NytArticle): Article => {
     pub_date: nytArticle.pub_date,
     author: author,
     title: nytArticle.headline.main,
+    category: 'Uncategorized',
   };
 
   return article;

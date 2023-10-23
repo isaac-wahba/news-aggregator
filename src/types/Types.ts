@@ -5,6 +5,7 @@ export interface Article {
   pub_date: string;
   author: string;
   title: string;
+  category?: string;
 }
 
 export interface fetchArticlesResult {

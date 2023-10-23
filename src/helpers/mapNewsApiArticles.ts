@@ -5,7 +5,8 @@ export const mapNewsApiArticle = (newsApiArticle: NewsApiArticle): Article => {
   const article: Article = {
     web_url: newsApiArticle.url,
     snippet: newsApiArticle.description,
-    source: newsApiArticle.source.name,
+    source: 'News Api',
+    category: 'Uncategorized',
     pub_date: newsApiArticle.publishedAt,
     author: newsApiArticle.author,
     title: newsApiArticle.title,
