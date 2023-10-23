@@ -5,6 +5,7 @@ export interface NytArticle {
   source: string;
   pub_date: string;
   byline: Byline;
+  headline: { main: string };
 }
 
 interface Person {

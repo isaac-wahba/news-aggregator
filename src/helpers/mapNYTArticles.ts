@@ -1,20 +1,21 @@
 import { Article } from '../types/Types';
 import { NytArticle } from '../types/responses/NYTResponseTypes';
 
-export const mapArticleToArticleType = (article: NytArticle): Article => {
-  const author: string = `${article.byline?.person[0]?.firstname} ${
-    article.byline?.person[0]?.middlename
-      ? article.byline?.person[0]?.middlename
+export const mapArticleToArticleType = (nytArticle: NytArticle): Article => {
+  const author: string = `${nytArticle.byline?.person[0]?.firstname} ${
+    nytArticle.byline?.person[0]?.middlename
+      ? nytArticle.byline?.person[0]?.middlename
       : ''
-  } ${article.byline?.person[0]?.lastname}`;
+  } ${nytArticle.byline?.person[0]?.lastname}`;
 
-  const articleType: Article = {
-    web_url: article.web_url,
-    snippet: article.snippet,
-    source: article.source,
-    pub_date: article.pub_date,
+  const article: Article = {
+    web_url: nytArticle.web_url,
+    snippet: nytArticle.snippet,
+    source: nytArticle.source,
+    pub_date: nytArticle.pub_date,
     author: author,
+    title: nytArticle.headline.main,
   };
 
-  return articleType;
+  return article;
 };
