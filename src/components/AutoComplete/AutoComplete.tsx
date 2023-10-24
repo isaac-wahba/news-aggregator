@@ -1,12 +1,12 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import React from 'react';
 interface AutoCompleteProps {
   options: string[];
+  onSelect: (value: string) => void;
   label: string;
 }
 
-function AutoComplete({ options, label }: AutoCompleteProps) {
+function AutoComplete({ options, label, onSelect }: AutoCompleteProps) {
   return (
     <div>
       <Autocomplete
@@ -14,6 +14,10 @@ function AutoComplete({ options, label }: AutoCompleteProps) {
         id="combo-box"
         options={options}
         sx={{ width: 300 }}
+        onChange={(event: any, newValue: string | null) => {
+          console.log(newValue);
+          onSelect(newValue as string);
+        }}
         renderInput={(params) => <TextField {...params} label={label} />}
       />
     </div>

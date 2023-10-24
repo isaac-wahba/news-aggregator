@@ -23,6 +23,11 @@ function useFetchAggregatedArticles(
 
   useEffect(() => {
     if (searchQuery !== '') fetchAllArticles();
+    else {
+      setArticles([]);
+      setErrors([]);
+      setIsLoading(false);
+    }
   }, [searchQuery]);
 
   const fetchAllArticles = async () => {
