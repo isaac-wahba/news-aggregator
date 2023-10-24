@@ -22,7 +22,7 @@ function useFetchAggregatedArticles(
   const [errors, setErrors] = useState<Error[]>([]);
 
   useEffect(() => {
-    fetchAllArticles();
+    if (searchQuery !== '') fetchAllArticles();
   }, [searchQuery]);
 
   const fetchAllArticles = async () => {
