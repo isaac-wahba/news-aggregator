@@ -6,6 +6,7 @@ export interface NytArticle {
   pub_date: string;
   byline: Byline;
   headline: { main: string };
+  section_name: string;
 }
 
 interface Person {
