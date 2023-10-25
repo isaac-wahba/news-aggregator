@@ -1,6 +1,7 @@
 import { unknownAuthor } from '../constants/mappingConstants';
 import { Article } from '../types/Types';
 import { NewsApiArticle } from '../types/responses/NewsAiTypes';
+import { formatDate } from '../utils/formatDate';
 
 export const mapNewsApiArticle = (newsApiArticle: NewsApiArticle): Article => {
   const article: Article = {
@@ -8,7 +9,7 @@ export const mapNewsApiArticle = (newsApiArticle: NewsApiArticle): Article => {
     snippet: newsApiArticle.description,
     source: 'News Api',
     category: 'Uncategorized',
-    pub_date: newsApiArticle.publishedAt,
+    pub_date: formatDate(new Date(newsApiArticle.publishedAt)),
     author: newsApiArticle.author ?? unknownAuthor,
     title: newsApiArticle.title,
   };

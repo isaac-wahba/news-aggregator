@@ -28,7 +28,7 @@ function useFetchAggregatedArticles(
       setErrors([]);
       setIsLoading(false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, apiFunctions]);
 
   const fetchAllArticles = async () => {
     setIsLoading(true);

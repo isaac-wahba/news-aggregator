@@ -1,6 +1,7 @@
 import { unknownAuthor } from '../constants/mappingConstants';
 import { Article } from '../types/Types';
 import { NytArticle } from '../types/responses/NYTResponseTypes';
+import { formatDate } from '../utils/formatDate';
 
 export const mapArticleToArticleType = (nytArticle: NytArticle): Article => {
   const author: string =
@@ -12,7 +13,7 @@ export const mapArticleToArticleType = (nytArticle: NytArticle): Article => {
     web_url: nytArticle.web_url,
     snippet: nytArticle.snippet,
     source: nytArticle.source,
-    pub_date: nytArticle.pub_date,
+    pub_date: formatDate(new Date(nytArticle.pub_date)),
     author: author ?? unknownAuthor,
     title: nytArticle.headline.main,
     category: nytArticle.section_name,

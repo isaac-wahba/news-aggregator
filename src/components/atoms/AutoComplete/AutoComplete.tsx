@@ -11,11 +11,9 @@ function AutoComplete({ options, label, onSelect }: AutoCompleteProps) {
     <div>
       <Autocomplete
         disablePortal
-        id="combo-box"
         options={options}
         sx={{ width: 300 }}
         onChange={(event: any, newValue: string | null) => {
-          console.log(newValue);
           onSelect(newValue as string);
         }}
         renderInput={(params) => <TextField {...params} label={label} />}

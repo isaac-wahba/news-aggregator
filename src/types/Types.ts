@@ -11,3 +11,13 @@ export interface Article {
 export interface fetchArticlesResult {
   articles: Article[] | null;
 }
+
+export interface ArticlesFilters {
+  category?: string;
+  date?: string;
+}
+
+export interface NewsResource {
+  id: number;
+  label: string;
+}

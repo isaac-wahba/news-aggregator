@@ -1,0 +1,5 @@
+.date-picker-container {
+  align-items: flex-end;
+  flex-direction: column;
+  display: flex;
+}

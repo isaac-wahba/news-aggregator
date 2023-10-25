@@ -4,21 +4,11 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #e6e6e6;
+  gap: 1rem;
 }
 
-.page-header {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 10%;
-  align-items: center;
-  justify-content: center;
-}
-
-.page-content {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 90%;
+.search-field-container,
+.sources-container,
+.filters-container {
+  padding: 0 2rem 0 2rem;
 }
