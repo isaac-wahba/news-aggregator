@@ -1,10 +1,7 @@
 import { useState } from 'react';
+import './HomePage.css';
 import SearchField from '../../components/atoms/SearchInput/SearchField';
 import useFetchAggregatedArticles from '../../hooks/useFetchArticles';
-import fetchNewsApiArticles from '../../services/data/fetchNewsApiArticles';
-import fetchNYTArticles from '../../services/data/fetchNytArticles';
-import fetchTheGardianArticles from '../../services/data/fetchTheGardianData';
-import './HomePage.css';
 import Filters from '../../components/molecules/Filters/Filters';
 import { ArticlesFilters, NewsResource } from '../../types/Types';
 import NewsSourceTabs from '../../components/organisms/NewsSourceTabs/NewsSourceTabs';
@@ -22,6 +19,9 @@ import { filterFetchNewsFunction } from '../../helpers/getFetchFunction';
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filters, setFilters] = useState<ArticlesFilters>();
+  // update on change preferences.
+  const [newsResources, setNewsResources] =
+    useState<NewsResource[]>(allNewsResources);
   // update on src click
   const [fetchArticlesList, setFetchArticlesList] = useState<
     FetchArticlesFromResource[]
@@ -31,9 +31,6 @@ function HomePage() {
         fetchArticlesByResource.fetchArticlesFromResource
     )
   );
-  // update on change preferences.
-  const [newsResources, setNewsResources] =
-    useState<NewsResource[]>(allNewsResources);
   const { articles, errors, isLoading } = useFetchAggregatedArticles(
     searchQuery,
     fetchArticlesList
@@ -71,6 +68,22 @@ function HomePage() {
         )
       );
     }
+  };
+
+  // call on save filters.
+  const updateFetchArticlesList = () => {
+    setFetchArticlesList(
+      fetchArticlesByResourceList
+        .filter((fetchArticlesByResource: FetchArticlesByResource) =>
+          newsResources
+            .map((newsResource: NewsResource) => newsResource.id)
+            .includes(fetchArticlesByResource.id)
+        )
+        .map(
+          (fetchArticlesByResource: FetchArticlesByResource) =>
+            fetchArticlesByResource.fetchArticlesFromResource
+        )
+    );
   };
 
   return (

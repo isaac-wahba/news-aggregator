@@ -5,7 +5,10 @@ import {
   FetchArticlesFromResource,
 } from '../types/serviceTypes';
 
-export const filterFetchNewsFunction = (
+type GetFetchFunctionType = (
+  src: NewsResourcesEnum
+) => FetchArticlesFromResource;
+export const filterFetchNewsFunction: GetFetchFunctionType = (
   src: NewsResourcesEnum
 ): FetchArticlesFromResource => {
   return fetchArticlesByResourceList
