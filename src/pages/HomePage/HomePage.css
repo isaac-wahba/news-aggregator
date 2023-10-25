@@ -5,6 +5,7 @@
   width: 100vw;
   overflow: hidden;
   gap: 1rem;
+  padding-top: 2rem;
 }
 
 .sources-and-preferences {

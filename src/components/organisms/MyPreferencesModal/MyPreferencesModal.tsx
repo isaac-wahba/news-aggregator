@@ -2,11 +2,11 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
+import MultiSelect from '../../atoms/MultiSelect/MultiSelect';
 
 export default function MyPreferencesModal() {
   const [open, setOpen] = useState(false);
@@ -35,7 +35,26 @@ export default function MyPreferencesModal() {
         <DialogTitle id="responsive-dialog-title">
           {'My Preferences'}
         </DialogTitle>
-        <DialogContent>{/* // insert here */}</DialogContent>
+        <DialogContent>
+          <MultiSelect
+            id="categories"
+            label="Categories"
+            placehloder="Select Categories"
+            options={['dsad', 'djqwod']}
+          />
+          <MultiSelect
+            id="authors"
+            label="Authors"
+            placehloder="Select Authors"
+            options={['dsad', 'djqwod']}
+          />
+          <MultiSelect
+            id="news-sources"
+            label="News Source"
+            placehloder="Select News Source"
+            options={['dsad', 'djqwod']}
+          />
+        </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Cancel
