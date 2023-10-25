@@ -20,6 +20,8 @@ function useFetchAggregatedArticles(
   const [articles, setArticles] = useState<Article[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errors, setErrors] = useState<Error[]>([]);
+  const [allAuthors, setAllAuthors] = useState<string[]>([]);
+  const [allCategories, setAllCategories] = useState<string[]>([]);
 
   useEffect(() => {
     if (searchQuery !== '') fetchAllArticles();
@@ -38,18 +40,27 @@ function useFetchAggregatedArticles(
     );
 
     try {
+      const authorsSet = new Set<string>();
+      const categoriesSet = new Set<string>();
       const results: fetchArticlesResult[] = await Promise.all(promises);
       console.log(results);
-      //   const resultArticles: Article[] | null = results.map(
-      //     (result: fetchArticlesResult) => result.articles
-      //   );
-
       let resultArticles: Article[] | undefined = [];
       results.forEach((result: fetchArticlesResult) => {
         if (result.articles && result.articles?.length > 0)
           resultArticles = resultArticles?.concat(result.articles);
       });
       setArticles(resultArticles);
+      resultArticles.forEach((article) => {
+        if (article.author) {
+          authorsSet.add(article.author);
+        }
+        if (article.category) {
+          categoriesSet.add(article.category);
+        }
+      });
+
+      setAllAuthors(Array.from(authorsSet));
+      setAllCategories(Array.from(categoriesSet));
     } catch (error) {
       setErrors([...errors, error as Error]);
     } finally {
@@ -57,7 +68,7 @@ function useFetchAggregatedArticles(
     }
   };
 
-  return { articles, isLoading, errors };
+  return { articles, allAuthors, allCategories, isLoading, errors };
 }
 
 export default useFetchAggregatedArticles;

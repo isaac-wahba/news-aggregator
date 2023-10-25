@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './HomePage.css';
 import SearchField from '../../components/atoms/SearchInput/SearchField';
 import useFetchAggregatedArticles from '../../hooks/useFetchArticles';
@@ -15,6 +15,7 @@ import {
   FetchArticlesFromResource,
 } from '../../types/serviceTypes';
 import { filterFetchNewsFunction } from '../../helpers/getFetchFunction';
+import MyPreferencesModal from '../../components/organisms/MyPreferencesModal/MyPreferencesModal';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -31,15 +32,20 @@ function HomePage() {
         fetchArticlesByResource.fetchArticlesFromResource
     )
   );
-  const { articles, errors, isLoading } = useFetchAggregatedArticles(
-    searchQuery,
-    fetchArticlesList
-  );
+  const { articles, errors, isLoading, allAuthors, allCategories } =
+    useFetchAggregatedArticles(searchQuery, fetchArticlesList);
   if (articles) {
-    console.log('functions', fetchArticlesList);
-    console.log('articles', articles, errors, isLoading);
+    // console.log(
+    //   'articles',
+    //   articles,
+    //   allAuthors,
+    //   allCategories,
+    //   errors,
+    //   isLoading
+    // );
   }
-
+  const [categories, setCategories] = useState<string[]>(allCategories);
+  const [authors, setAuthors] = useState<string[]>(allAuthors);
   const onArticleSearch = (query: string) => {
     setSearchQuery(query);
   };
@@ -85,20 +91,35 @@ function HomePage() {
         )
     );
   };
+  useEffect(() => {
+    console.log(searchQuery);
+
+    if (searchQuery === '') {
+      setCategories([]);
+      setAuthors([]);
+    } else {
+      setCategories(allCategories);
+      setAuthors(allAuthors);
+    }
+  }, [isLoading, searchQuery]);
 
   return (
     <div className="layout">
       <div className="search-field-container">
         <SearchField onSearch={onArticleSearch} />
       </div>
-      <div className="sources-container">
-        <NewsSourceTabs
-          newsResources={newsResources}
-          onSelectResource={onResourceChange}
-        />
+      <div className="sources-and-preferences">
+        <div className="sources-container">
+          <NewsSourceTabs
+            newsResources={newsResources}
+            onSelectResource={onResourceChange}
+          />
+        </div>
+        <MyPreferencesModal />
       </div>
       <div className="filters-container">
         <Filters
+          categoriesOptions={categories}
           onSelectCategory={onCategorySelect}
           onChangeDate={onDateChange}
         />

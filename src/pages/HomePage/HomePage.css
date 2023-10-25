@@ -7,8 +7,14 @@
   gap: 1rem;
 }
 
+.sources-and-preferences {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 .search-field-container,
-.sources-container,
+.sources-and-preferences,
 .filters-container {
   padding: 0 2rem 0 2rem;
 }
