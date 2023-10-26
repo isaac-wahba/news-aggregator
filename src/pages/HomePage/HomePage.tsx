@@ -122,9 +122,9 @@ function HomePage() {
   };
   useEffect(() => {
     if (searchQuery === '') {
+      setFilters(undefined);
       setCategories([]);
       setAuthors([]);
-      setFilters(undefined);
     } else {
       setCategories(allCategories);
       setAuthors(allAuthors);
@@ -174,6 +174,7 @@ function HomePage() {
           onSelectCategory={onCategorySelect}
           onChangeDate={onDateChange}
           selectedCategory={filters?.category ?? undefined}
+          selectedDate={filters?.date ?? null}
         />
       </div>
     </div>

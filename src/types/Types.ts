@@ -14,7 +14,7 @@ export interface fetchArticlesResult {
 
 export interface ArticlesFilters {
   category?: string;
-  date?: string;
+  date?: string | undefined;
 }
 
 export interface NewsResource {

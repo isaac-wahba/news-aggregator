@@ -8,10 +8,13 @@ import './DatePickerField.css';
 
 interface DatePickerFieldProps {
   onDateChange: (date: any) => void;
+  previouslySelectedDate: string | null;
 }
 function DatePickerField(props: DatePickerFieldProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const { onDateChange } = props;
+  const { onDateChange, previouslySelectedDate } = props;
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    previouslySelectedDate?.length ? new Date(previouslySelectedDate) : null
+  );
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
     onDateChange(formatDate(new Date(date)));
@@ -20,6 +23,8 @@ function DatePickerField(props: DatePickerFieldProps) {
   const handleClear = () => {
     setSelectedDate(null);
   };
+  console.log(selectedDate);
+
   return (
     <div className="date-picker-container ">
       <LocalizationProvider dateAdapter={AdapterDayjs}>

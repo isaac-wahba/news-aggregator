@@ -7,6 +7,7 @@ interface FiltersProps {
   onChangeDate: (date: any) => void;
   categoriesOptions: string[];
   selectedCategory: string | undefined;
+  selectedDate: string | null;
 }
 function Filters(props: FiltersProps) {
   const {
@@ -14,6 +15,7 @@ function Filters(props: FiltersProps) {
     onChangeDate,
     categoriesOptions,
     selectedCategory,
+    selectedDate,
   } = props;
 
   const onCategorySelect = (category: string) => {
@@ -28,7 +30,10 @@ function Filters(props: FiltersProps) {
         options={categoriesOptions}
         selectedValue={selectedCategory}
       />
-      <DatePickerField onDateChange={onChangeDate} />
+      <DatePickerField
+        onDateChange={onChangeDate}
+        previouslySelectedDate={selectedDate}
+      />
     </div>
   );
 }
