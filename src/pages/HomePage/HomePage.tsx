@@ -24,6 +24,9 @@ import MyPreferencesModal from '../../components/organisms/MyPreferencesModal/My
 import { filterArticles } from '../../helpers/filterArticles';
 import ArticlesList from '../../components/organisms/ArticlesList/ArticlesList';
 
+import NoArticlesView from '../../components/atoms/NoArticlesView/NoArticlesView';
+import LoadingIndicator from '../../components/atoms/LoadingIndicator/LoadingIndicator';
+
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filters, setFilters] = useState<ArticlesFilters>();
@@ -181,9 +184,23 @@ function HomePage() {
           selectedDate={filters?.date ?? null}
         />
       </div>
-      <div className="articles-list-container">
-        <ArticlesList articles={articlesToDisplay} />
-      </div>
+      {isLoading ? (
+        <>
+          <NoArticlesView message="Loading .." />
+          <LoadingIndicator />
+        </>
+      ) : (
+        <div className="articles-list-container">
+          <ArticlesList
+            articles={articlesToDisplay}
+            noDataViewMessage={
+              searchQuery
+                ? `No articles found for "${searchQuery}"`
+                : 'Start searching to find something interesting to read today!'
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }
