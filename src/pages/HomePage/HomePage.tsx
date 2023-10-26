@@ -47,7 +47,7 @@ function HomePage() {
     authors: [],
     sources: [],
   });
-  const { articles, errors, isLoading, allAuthors, allCategories } =
+  const { articles, isLoading, allAuthors, allCategories } =
     useFetchAggregatedArticles(searchQuery, fetchArticlesList, myPreferences);
 
   const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>(

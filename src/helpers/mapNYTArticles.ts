@@ -12,6 +12,7 @@ export const mapArticleToArticleType = (nytArticle: NytArticle): Article => {
   const article: Article = {
     web_url: nytArticle.web_url,
     snippet: nytArticle.snippet,
+    body: nytArticle.lead_paragraph,
     source: nytArticle.source,
     pub_date: formatDate(new Date(nytArticle.pub_date)),
     author: author ?? unknownAuthor,

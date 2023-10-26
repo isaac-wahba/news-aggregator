@@ -7,7 +7,8 @@ export const mapTheGardianArticle = (
 ): Article => {
   const article: Article = {
     web_url: theGardianArticle.webUrl,
-    snippet: theGardianArticle.fields.bodyText,
+    body: theGardianArticle.fields.bodyText,
+    snippet: theGardianArticle.fields.bodyText.slice(0, 200) + '...',
     source: 'The Guardian',
     pub_date: formatDate(new Date(theGardianArticle.webPublicationDate)),
     author: theGardianArticle.fields.byline,

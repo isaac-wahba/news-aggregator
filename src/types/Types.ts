@@ -6,6 +6,7 @@ export interface Article {
   author: string;
   title: string;
   category?: string;
+  body: string;
 }
 
 export interface fetchArticlesResult {
