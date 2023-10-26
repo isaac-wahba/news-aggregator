@@ -22,6 +22,7 @@ import {
 import { filterFetchNewsFunction } from '../../helpers/getFetchFunction';
 import MyPreferencesModal from '../../components/organisms/MyPreferencesModal/MyPreferencesModal';
 import { filterArticles } from '../../helpers/filterArticles';
+import ArticlesList from '../../components/organisms/ArticlesList/ArticlesList';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -179,6 +180,9 @@ function HomePage() {
           selectedCategory={filters?.category ?? undefined}
           selectedDate={filters?.date ?? null}
         />
+      </div>
+      <div className="articles-list-container">
+        <ArticlesList articles={articlesToDisplay} />
       </div>
     </div>
   );
