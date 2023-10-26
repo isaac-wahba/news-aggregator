@@ -2,7 +2,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { formatDate } from '../../../utils/formatDate';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import './DatePickerField.css';
 
@@ -19,7 +19,9 @@ function DatePickerField(props: DatePickerFieldProps) {
     setSelectedDate(date);
     onDateChange(formatDate(new Date(date)));
   };
-
+  useEffect(() => {
+    if (previouslySelectedDate == null) setSelectedDate(null);
+  }, [previouslySelectedDate]);
   const handleClear = () => {
     setSelectedDate(null);
   };

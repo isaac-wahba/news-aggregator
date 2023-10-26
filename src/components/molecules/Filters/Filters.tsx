@@ -21,6 +21,7 @@ function Filters(props: FiltersProps) {
   const onCategorySelect = (category: string) => {
     onSelectCategory(category);
   };
+  console.log(selectedDate);
 
   return (
     <div className="filters-conainer">
