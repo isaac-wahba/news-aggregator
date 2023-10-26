@@ -21,3 +21,10 @@ export interface NewsResource {
   id: number;
   label: string;
 }
+
+export interface MyPreferences {
+  categories?: string[];
+  authors?: string[];
+  sources?: string[];
+  date?: string;
+}

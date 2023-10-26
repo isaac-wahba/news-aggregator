@@ -1,4 +1,3 @@
-import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 interface MultiSelectProps {
@@ -6,17 +5,27 @@ interface MultiSelectProps {
   id: string;
   label: string;
   placehloder: string;
+  onChangeSelectedOptions: (selectedOptions: string[]) => void;
+  selectedOptions: string[];
 }
 function MultiSelect(props: MultiSelectProps) {
-  const { options, label, placehloder, id } = props;
+  const {
+    options,
+    label,
+    placehloder,
+    id,
+    onChangeSelectedOptions,
+    selectedOptions,
+  } = props;
   return (
     <Autocomplete
       multiple
       id={id}
       options={options}
-      // options={['dsad', 'djqwod']}
-      // getOptionLabel={(option) => option.title}
-      defaultValue={undefined}
+      onChange={(event, value: string[]) => {
+        onChangeSelectedOptions(value);
+      }}
+      value={selectedOptions}
       renderInput={(params) => (
         <TextField
           {...params}

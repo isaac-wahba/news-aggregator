@@ -6,9 +6,15 @@ interface FiltersProps {
   onSelectCategory: (category: string) => void;
   onChangeDate: (date: any) => void;
   categoriesOptions: string[];
+  selectedCategory: string | undefined;
 }
 function Filters(props: FiltersProps) {
-  const { onSelectCategory, onChangeDate, categoriesOptions } = props;
+  const {
+    onSelectCategory,
+    onChangeDate,
+    categoriesOptions,
+    selectedCategory,
+  } = props;
 
   const onCategorySelect = (category: string) => {
     onSelectCategory(category);
@@ -20,6 +26,7 @@ function Filters(props: FiltersProps) {
         label="Select Category"
         onSelect={onCategorySelect}
         options={categoriesOptions}
+        selectedValue={selectedCategory}
       />
       <DatePickerField onDateChange={onChangeDate} />
     </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Article, fetchArticlesResult } from '../types/Types';
+import { Article, MyPreferences, fetchArticlesResult } from '../types/Types';
 
 async function fetchArticlesFromApi(
   apiFunction: (query: string) => Promise<any>,
@@ -15,7 +15,8 @@ async function fetchArticlesFromApi(
 
 function useFetchAggregatedArticles(
   searchQuery: string,
-  apiFunctions: ((query: string) => Promise<any>)[]
+  apiFunctions: ((query: string) => Promise<any>)[],
+  filters: MyPreferences
 ) {
   const [articles, setArticles] = useState<Article[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -30,7 +31,7 @@ function useFetchAggregatedArticles(
       setErrors([]);
       setIsLoading(false);
     }
-  }, [searchQuery, apiFunctions]);
+  }, [searchQuery, apiFunctions, filters]);
 
   const fetchAllArticles = async () => {
     setIsLoading(true);
@@ -59,8 +60,26 @@ function useFetchAggregatedArticles(
         }
       });
 
-      setAllAuthors(Array.from(authorsSet));
-      setAllCategories(Array.from(categoriesSet));
+      if (filters?.authors && filters.authors.length > 0) {
+        setAllAuthors(
+          Array.from(authorsSet).filter(
+            (author: string) =>
+              filters.authors && filters.authors.includes(author)
+          )
+        );
+      } else {
+        setAllAuthors(Array.from(authorsSet));
+      }
+      if (filters?.categories && filters.categories.length > 0) {
+        setAllAuthors(
+          Array.from(authorsSet).filter(
+            (category: string) =>
+              filters.categories && filters.categories.includes(category)
+          )
+        );
+      } else {
+        setAllCategories(Array.from(categoriesSet));
+      }
     } catch (error) {
       setErrors([...errors, error as Error]);
     } finally {

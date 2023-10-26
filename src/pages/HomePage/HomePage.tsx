@@ -3,7 +3,11 @@ import './HomePage.css';
 import SearchField from '../../components/atoms/SearchInput/SearchField';
 import useFetchAggregatedArticles from '../../hooks/useFetchArticles';
 import Filters from '../../components/molecules/Filters/Filters';
-import { ArticlesFilters, NewsResource } from '../../types/Types';
+import {
+  ArticlesFilters,
+  MyPreferences,
+  NewsResource,
+} from '../../types/Types';
 import NewsSourceTabs from '../../components/organisms/NewsSourceTabs/NewsSourceTabs';
 import {
   allNewsResources,
@@ -24,6 +28,7 @@ function HomePage() {
   const [newsResources, setNewsResources] =
     useState<NewsResource[]>(allNewsResources);
   // update on src click
+
   const [fetchArticlesList, setFetchArticlesList] = useState<
     FetchArticlesFromResource[]
   >(
@@ -32,8 +37,13 @@ function HomePage() {
         fetchArticlesByResource.fetchArticlesFromResource
     )
   );
+  const [myPreferences, setMyPreferences] = useState<MyPreferences>({
+    categories: [],
+    authors: [],
+    sources: [],
+  });
   const { articles, errors, isLoading, allAuthors, allCategories } =
-    useFetchAggregatedArticles(searchQuery, fetchArticlesList);
+    useFetchAggregatedArticles(searchQuery, fetchArticlesList, myPreferences);
   if (articles) {
     // console.log(
     //   'articles',
@@ -44,6 +54,7 @@ function HomePage() {
     //   isLoading
     // );
   }
+
   const [categories, setCategories] = useState<string[]>(allCategories);
   const [authors, setAuthors] = useState<string[]>(allAuthors);
   const onArticleSearch = (query: string) => {
@@ -54,10 +65,19 @@ function HomePage() {
       ...filters,
       category: category,
     });
+    setMyPreferences({
+      ...myPreferences,
+      categories: [category],
+    });
   };
   const onDateChange = (date: string) => {
     setFilters({
       ...filters,
+      date: date,
+    });
+
+    setMyPreferences({
+      ...myPreferences,
       date: date,
     });
   };
@@ -76,8 +96,42 @@ function HomePage() {
     }
   };
 
-  // call on save filters.
-  const updateFetchArticlesList = () => {
+  const onUpdatePreferences = (selectedPreferences: MyPreferences) => {
+    setMyPreferences(selectedPreferences);
+    if (filters?.category && filters?.category?.length > 0) {
+      setFilters({
+        ...filters,
+        category: undefined,
+      });
+    }
+    if (
+      selectedPreferences.sources &&
+      selectedPreferences.sources?.length > 0
+    ) {
+      setNewsResources(
+        allNewsResources.filter((newsResource: NewsResource) => {
+          return (
+            selectedPreferences.sources &&
+            selectedPreferences.sources.includes(newsResource.label)
+          );
+        })
+      );
+    }
+    setCategories(selectedPreferences.categories ?? []);
+    setAuthors(selectedPreferences.authors ?? []);
+  };
+  useEffect(() => {
+    if (searchQuery === '') {
+      setCategories([]);
+      setAuthors([]);
+      setFilters(undefined);
+    } else {
+      setCategories(allCategories);
+      setAuthors(allAuthors);
+    }
+  }, [isLoading, searchQuery]);
+
+  useEffect(() => {
     setFetchArticlesList(
       fetchArticlesByResourceList
         .filter((fetchArticlesByResource: FetchArticlesByResource) =>
@@ -90,18 +144,7 @@ function HomePage() {
             fetchArticlesByResource.fetchArticlesFromResource
         )
     );
-  };
-  useEffect(() => {
-    console.log(searchQuery);
-
-    if (searchQuery === '') {
-      setCategories([]);
-      setAuthors([]);
-    } else {
-      setCategories(allCategories);
-      setAuthors(allAuthors);
-    }
-  }, [isLoading, searchQuery]);
+  }, [newsResources]);
 
   return (
     <div className="layout">
@@ -115,13 +158,22 @@ function HomePage() {
             onSelectResource={onResourceChange}
           />
         </div>
-        <MyPreferencesModal />
+        <MyPreferencesModal
+          categoriesOptions={categories}
+          authorsOptions={authors}
+          newsSourcesOptions={allNewsResources.map(
+            (newsResource: NewsResource) => newsResource.label
+          )}
+          onSavePreferences={onUpdatePreferences}
+          selectedPreferences={myPreferences}
+        />
       </div>
       <div className="filters-container">
         <Filters
           categoriesOptions={categories}
           onSelectCategory={onCategorySelect}
           onChangeDate={onDateChange}
+          selectedCategory={filters?.category ?? undefined}
         />
       </div>
     </div>

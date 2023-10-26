@@ -16,9 +16,9 @@ function NewsSourceTabs(props: NewsSourceTabsProps) {
         return (
           <ChipItem
             label={newsResource.label}
-            onChipClick={(isClicked: boolean) =>
-              onSelectResource(newsResource.id, isClicked)
-            }
+            onChipClick={(isClicked: boolean) => {
+              onSelectResource(newsResource.id, isClicked);
+            }}
             key={newsResource.id}
           />
         );
