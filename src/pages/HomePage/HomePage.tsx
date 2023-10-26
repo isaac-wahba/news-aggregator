@@ -4,6 +4,7 @@ import SearchField from '../../components/atoms/SearchInput/SearchField';
 import useFetchAggregatedArticles from '../../hooks/useFetchArticles';
 import Filters from '../../components/molecules/Filters/Filters';
 import {
+  Article,
   ArticlesFilters,
   MyPreferences,
   NewsResource,
@@ -20,14 +21,14 @@ import {
 } from '../../types/serviceTypes';
 import { filterFetchNewsFunction } from '../../helpers/getFetchFunction';
 import MyPreferencesModal from '../../components/organisms/MyPreferencesModal/MyPreferencesModal';
+import { filterArticles } from '../../helpers/filterArticles';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filters, setFilters] = useState<ArticlesFilters>();
-  // update on change preferences.
+
   const [newsResources, setNewsResources] =
     useState<NewsResource[]>(allNewsResources);
-  // update on src click
 
   const [fetchArticlesList, setFetchArticlesList] = useState<
     FetchArticlesFromResource[]
@@ -44,17 +45,10 @@ function HomePage() {
   });
   const { articles, errors, isLoading, allAuthors, allCategories } =
     useFetchAggregatedArticles(searchQuery, fetchArticlesList, myPreferences);
-  if (articles) {
-    // console.log(
-    //   'articles',
-    //   articles,
-    //   allAuthors,
-    //   allCategories,
-    //   errors,
-    //   isLoading
-    // );
-  }
 
+  const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>(
+    articles ?? []
+  );
   const [categories, setCategories] = useState<string[]>(allCategories);
   const [authors, setAuthors] = useState<string[]>(allAuthors);
   const onArticleSearch = (query: string) => {
@@ -67,9 +61,13 @@ function HomePage() {
     });
     setMyPreferences({
       ...myPreferences,
-      categories: [category],
+      categories: category ? [category] : [],
     });
+    console.log(category, 'ere');
   };
+
+  console.log('display here', articlesToDisplay);
+
   const onDateChange = (date: string) => {
     setFilters({
       ...filters,
@@ -120,6 +118,11 @@ function HomePage() {
     setCategories(selectedPreferences.categories ?? []);
     setAuthors(selectedPreferences.authors ?? []);
   };
+  useEffect(() => {
+    if (articles) setArticlesToDisplay(filterArticles(articles, myPreferences));
+    else setArticlesToDisplay([]);
+  }, [articles, myPreferences]);
+
   useEffect(() => {
     if (searchQuery === '') {
       setFilters(undefined);

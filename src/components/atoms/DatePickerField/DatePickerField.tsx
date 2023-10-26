@@ -24,8 +24,8 @@ function DatePickerField(props: DatePickerFieldProps) {
   }, [previouslySelectedDate]);
   const handleClear = () => {
     setSelectedDate(null);
+    onDateChange(null);
   };
-  console.log(selectedDate);
 
   return (
     <div className="date-picker-container ">

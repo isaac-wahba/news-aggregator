@@ -44,7 +44,6 @@ function useFetchAggregatedArticles(
       const authorsSet = new Set<string>();
       const categoriesSet = new Set<string>();
       const results: fetchArticlesResult[] = await Promise.all(promises);
-      console.log(results);
       let resultArticles: Article[] | undefined = [];
       results.forEach((result: fetchArticlesResult) => {
         if (result.articles && result.articles?.length > 0)
@@ -86,6 +85,7 @@ function useFetchAggregatedArticles(
       setIsLoading(false);
     }
   };
+  // console.log(articles);
 
   return { articles, allAuthors, allCategories, isLoading, errors };
 }
