@@ -1,12 +1,10 @@
-.filters-conainer {
+.sources-chips-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
   gap: 1rem;
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.5rem;
-    align-items: flex-start;
-    justify-content: center;
   }
 }

@@ -1,7 +1,7 @@
-import Stack from '@mui/material/Stack';
 import ChipItem from '../../atoms/ChipItem/ChipItem';
 import { NewsResource } from '../../../types/Types';
 import { NewsResourcesEnum } from '../../../enums/NewsResourcesEnum';
+import './NewsSourceTabs.css';
 
 export interface NewsSourceTabsProps {
   newsResources: NewsResource[];
@@ -11,7 +11,7 @@ function NewsSourceTabs(props: NewsSourceTabsProps) {
   const { newsResources, onSelectResource } = props;
 
   return (
-    <Stack direction="row" spacing={1}>
+    <div className="sources-chips-container">
       {newsResources.map((newsResource) => {
         return (
           <ChipItem
@@ -23,7 +23,7 @@ function NewsSourceTabs(props: NewsSourceTabsProps) {
           />
         );
       })}
-    </Stack>
+    </div>
   );
 }
 
