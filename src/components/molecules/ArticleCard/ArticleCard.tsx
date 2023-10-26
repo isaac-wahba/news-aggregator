@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Article } from '../../../types/Types';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const bull = (
   <Box
@@ -18,6 +19,7 @@ interface ArticleCardProps {
   article: Article;
 }
 export default function ArticleCard({ article }: ArticleCardProps) {
+  const navigate: NavigateFunction = useNavigate();
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -40,10 +42,20 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <Button
           size="small"
           onClick={() => {
-            window.open(article.web_url);
+            // window.open(article.web_url);
+            navigate(`/article/${article.title}`, { state: { article } });
           }}
         >
           Read More
+        </Button>
+        {bull}
+        <Button
+          size="small"
+          onClick={() => {
+            window.open(article.web_url);
+          }}
+        >
+          Read on {article.source}
         </Button>
       </CardActions>
     </Card>
