@@ -85,7 +85,6 @@ function useFetchAggregatedArticles(
       setIsLoading(false);
     }
   };
-  // console.log(articles);
 
   return { articles, allAuthors, allCategories, isLoading, errors };
 }

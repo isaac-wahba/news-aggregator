@@ -9,7 +9,6 @@ interface AutoCompleteProps {
 
 function AutoComplete(props: AutoCompleteProps) {
   const { options, label, onSelect, selectedValue } = props;
-  console.log(selectedValue);
 
   return (
     <div>

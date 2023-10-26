@@ -67,10 +67,7 @@ function HomePage() {
       ...myPreferences,
       categories: category ? [category] : [],
     });
-    console.log(category, 'ere');
   };
-
-  console.log('display here', articlesToDisplay);
 
   const onDateChange = (date: string) => {
     setFilters({
@@ -184,6 +181,7 @@ function HomePage() {
           selectedDate={filters?.date ?? null}
         />
       </div>
+
       {isLoading ? (
         <>
           <NoArticlesView message="Loading .." />
