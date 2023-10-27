@@ -1,4 +1,4 @@
-import { newsApi, newsUrl } from '../../apis/keys';
+import { newsUrl } from '../../apis/urls';
 import { mapNewsApiArticle } from '../../helpers/mapNewsApiArticles';
 import { Article } from '../../types/Types';
 import {
@@ -9,7 +9,7 @@ import {
 async function fetchNewsApiArticles(searchQuery: string): Promise<{
   articles: Article[] | null;
 }> {
-  const fullUrl = `${newsUrl}?q=${searchQuery}&apiKey=${newsApi}`;
+  const fullUrl = `${newsUrl}?q=${searchQuery}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
 
   const result: {
     articles: Article[] | null;

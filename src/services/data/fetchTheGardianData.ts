@@ -1,4 +1,4 @@
-import { guardianKey, guardianUrl } from '../../apis/keys';
+import { guardianUrl } from '../../apis/urls';
 import { mapTheGardianArticle } from '../../helpers/mapTheGardianArticles';
 import { Article } from '../../types/Types';
 import { GuardianResponse } from '../../types/responses/TheGardianResponseTypes';
@@ -13,7 +13,7 @@ async function fetchTheGardianArticles(searchQuery: string): Promise<{
   };
 
   try {
-    const fullUrl = `${guardianUrl}?q=${searchQuery}&show-fields=headline,bodyText,byline&api-key=${guardianKey}`;
+    const fullUrl = `${guardianUrl}?q=${searchQuery}&show-fields=headline,bodyText,byline&api-key=${process.env.REACT_APP_GARDIAN_KEY}`;
     const response = await fetch(fullUrl);
 
     if (!response.ok) {

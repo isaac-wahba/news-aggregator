@@ -1,4 +1,4 @@
-import { nytKey, nytUrl } from '../../apis/keys';
+import { nytUrl } from '../../apis/urls';
 import { mapArticleToArticleType } from '../../helpers/mapNYTArticles';
 import { Article } from '../../types/Types';
 import { NYTResponseData } from '../../types/responses/NYTResponseTypes';
@@ -13,7 +13,7 @@ async function fetchNYTArticles(searchQuery: string): Promise<{
   };
 
   try {
-    const fullUrl = `${nytUrl}?q=${searchQuery}&api-key=${nytKey}`;
+    const fullUrl = `${nytUrl}?q=${searchQuery}&api-key=${process.env.REACT_APP_NYT_KEY}`;
     const response = await fetch(fullUrl);
 
     if (!response.ok) {

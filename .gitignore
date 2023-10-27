@@ -24,7 +24,6 @@ yarn-error.log*
 
 
 # dev related files/ directories
-/src/apis
 response.js
 /src/hooks/separate-api-calls
-/src/here
+.env*
