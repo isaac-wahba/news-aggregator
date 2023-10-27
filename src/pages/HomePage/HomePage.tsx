@@ -26,10 +26,20 @@ import ArticlesList from '../../components/organisms/ArticlesList/ArticlesList';
 import LoadingIndicator from '../../components/atoms/LoadingIndicator/LoadingIndicator';
 import AlertView from '../../components/molecules/AlertView/AlertView';
 import { AlertEnum } from '../../enums/AlertEnum';
+import {
+  NavigateFunction,
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 
 function HomePage() {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState<string>(
+    searchParams.get('search') ?? ''
+  );
   const [filters, setFilters] = useState<ArticlesFilters>();
+  const navigate: NavigateFunction = useNavigate();
 
   const [newsResources, setNewsResources] =
     useState<NewsResource[]>(allNewsResources);
@@ -56,6 +66,12 @@ function HomePage() {
   const [categories, setCategories] = useState<string[]>(allCategories);
   const [authors, setAuthors] = useState<string[]>(allAuthors);
   const onArticleSearch = (query: string) => {
+    navigate({
+      pathname: '/',
+      search: createSearchParams({
+        search: query ?? '',
+      }).toString(),
+    });
     setSearchQuery(query);
   };
   const onCategorySelect = (category: string) => {
