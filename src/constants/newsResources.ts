@@ -19,12 +19,12 @@ export const allNewsResources: NewsResource[] = [
 
 export const fetchArticlesByResourceList: FetchArticlesByResource[] = [
   {
-    id: NewsResourcesEnum.NewYorkTimes,
-    fetchArticlesFromResource: fetchNYTArticles,
-  },
-  {
     id: NewsResourcesEnum.TheGuardian,
     fetchArticlesFromResource: fetchTheGardianArticles,
+  },
+  {
+    id: NewsResourcesEnum.NewYorkTimes,
+    fetchArticlesFromResource: fetchNYTArticles,
   },
   {
     id: NewsResourcesEnum.NewsAPI,
