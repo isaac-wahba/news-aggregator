@@ -42,7 +42,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <Button
           size="small"
           onClick={() => {
-            // window.open(article.web_url);
             navigate(`/article/${article.title}`, { state: { article } });
           }}
         >

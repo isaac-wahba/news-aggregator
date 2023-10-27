@@ -15,7 +15,6 @@ export function formatArticleBody(text: string): string {
     }
   }
 
-  // Join the formatted phrases back into a text
   const formattedText = formattedPhrases.join('');
 
   return formattedText;
