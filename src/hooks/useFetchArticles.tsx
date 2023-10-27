@@ -16,11 +16,11 @@ async function fetchArticlesFromApi(
 function useFetchAggregatedArticles(
   searchQuery: string,
   apiFunctions: ((query: string) => Promise<any>)[],
-  filters: MyPreferences
+  preferences: MyPreferences
 ) {
   const [articles, setArticles] = useState<Article[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [errors, setErrors] = useState<Error[]>([]);
+  const [hasError, setHasError] = useState<boolean>(false);
   const [allAuthors, setAllAuthors] = useState<string[]>([]);
   const [allCategories, setAllCategories] = useState<string[]>([]);
 
@@ -28,12 +28,13 @@ function useFetchAggregatedArticles(
     if (searchQuery !== '') fetchAllArticles();
     else {
       setArticles([]);
-      setErrors([]);
+      setHasError(false);
       setIsLoading(false);
     }
-  }, [searchQuery, apiFunctions, filters]);
+  }, [searchQuery, apiFunctions, preferences]);
 
   const fetchAllArticles = async () => {
+    setHasError(false);
     setIsLoading(true);
 
     const promises = apiFunctions.map((apiFunction) =>
@@ -59,34 +60,36 @@ function useFetchAggregatedArticles(
         }
       });
 
-      if (filters?.authors && filters.authors.length > 0) {
+      if (preferences?.authors && preferences.authors.length > 0) {
         setAllAuthors(
           Array.from(authorsSet).filter(
             (author: string) =>
-              filters.authors && filters.authors.includes(author)
+              preferences.authors && preferences.authors.includes(author)
           )
         );
       } else {
         setAllAuthors(Array.from(authorsSet));
       }
-      if (filters?.categories && filters.categories.length > 0) {
+      if (preferences?.categories && preferences.categories.length > 0) {
         setAllAuthors(
           Array.from(authorsSet).filter(
             (category: string) =>
-              filters.categories && filters.categories.includes(category)
+              preferences.categories &&
+              preferences.categories.includes(category)
           )
         );
       } else {
         setAllCategories(Array.from(categoriesSet));
       }
+      setHasError(false);
     } catch (error) {
-      setErrors([...errors, error as Error]);
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { articles, allAuthors, allCategories, isLoading, errors };
+  return { articles, allAuthors, allCategories, isLoading, hasError };
 }
 
 export default useFetchAggregatedArticles;

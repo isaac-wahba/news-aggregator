@@ -47,7 +47,7 @@ function HomePage() {
     authors: [],
     sources: [],
   });
-  const { articles, isLoading, allAuthors, allCategories } =
+  const { articles, isLoading, allAuthors, allCategories, hasError } =
     useFetchAggregatedArticles(searchQuery, fetchArticlesList, myPreferences);
 
   const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>(
@@ -188,6 +188,8 @@ function HomePage() {
             <NoArticlesView message="Loading .." />
             <LoadingIndicator />
           </>
+        ) : hasError ? (
+          <NoArticlesView message="Error loading articles .." />
         ) : (
           <ArticlesList
             articles={articlesToDisplay}

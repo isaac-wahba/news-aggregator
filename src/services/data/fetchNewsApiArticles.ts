@@ -30,7 +30,7 @@ async function fetchNewsApiArticles(searchQuery: string): Promise<{
     );
     result.articles = mappedArticles.slice(0, 10);
   } catch (err) {
-    console.log(err);
+    throw err;
   }
   return result;
 }
