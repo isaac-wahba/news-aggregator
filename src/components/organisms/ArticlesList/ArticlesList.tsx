@@ -17,10 +17,12 @@ function ArticlesList({
 }: ArticlesListProps) {
   return (
     <>
-      {articles.length === 0 && !hasNoSearchValue && (
-        <AlertView message={noDataViewMessage} alertType={AlertEnum.Info} />
+      {articles.length === 0 && (
+        <AlertView
+          message={noDataViewMessage}
+          alertType={hasNoSearchValue ? AlertEnum.Info : AlertEnum.Warning}
+        />
       )}
-      {hasNoSearchValue && <NoArticlesView message={noDataViewMessage} />}
       <div className="cards-container">
         {articles.map((article: Article, index: number) => {
           return (

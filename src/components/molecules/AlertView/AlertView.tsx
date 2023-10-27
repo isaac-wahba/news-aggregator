@@ -7,5 +7,14 @@ interface AlertViewProps {
 }
 
 export default function AlertView({ alertType, message }: AlertViewProps) {
-  return <Alert severity={alertType}>{message}</Alert>;
+  return (
+    <Alert
+      style={{
+        fontSize: '2rem',
+      }}
+      severity={alertType}
+    >
+      {message}
+    </Alert>
+  );
 }

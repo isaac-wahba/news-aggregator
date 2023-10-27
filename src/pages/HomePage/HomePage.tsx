@@ -185,7 +185,6 @@ function HomePage() {
       <div className="articles-list-container">
         {isLoading ? (
           <>
-            <AlertView message="Loading .." alertType={AlertEnum.Warning} />
             <LoadingIndicator />
           </>
         ) : hasError ? (
@@ -201,7 +200,7 @@ function HomePage() {
                 ? `No articles found for "${searchQuery}"`
                 : 'Start searching to find something interesting to read today!'
             }
-            hasNoSearchValue={searchQuery === ''}
+            hasNoSearchValue={!searchQuery}
           />
         )}
       </div>
