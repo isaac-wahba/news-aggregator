@@ -201,6 +201,7 @@ function HomePage() {
                 ? `No articles found for "${searchQuery}"`
                 : 'Start searching to find something interesting to read today!'
             }
+            hasNoSearchValue={searchQuery === ''}
           />
         )}
       </div>
