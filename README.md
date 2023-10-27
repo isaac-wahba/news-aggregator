@@ -74,5 +74,5 @@ Before you run the app, follow these steps:
    Replace `your-nyt-api-key`, `your-news-api-key`, and `your-guardian-api-key` with your respective API keys.
 
 4. **Start the Application**:
-   - Now you're ready to run the app. Start it using your preferred method (e.g., `npm start` or `yarn start`).
+   - Now you're ready to run the app. Start it using `npm start`.
   
