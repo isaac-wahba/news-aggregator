@@ -182,13 +182,13 @@ function HomePage() {
         />
       </div>
 
-      {isLoading ? (
-        <>
-          <NoArticlesView message="Loading .." />
-          <LoadingIndicator />
-        </>
-      ) : (
-        <div className="articles-list-container">
+      <div className="articles-list-container">
+        {isLoading ? (
+          <>
+            <NoArticlesView message="Loading .." />
+            <LoadingIndicator />
+          </>
+        ) : (
           <ArticlesList
             articles={articlesToDisplay}
             noDataViewMessage={
@@ -197,8 +197,8 @@ function HomePage() {
                 : 'Start searching to find something interesting to read today!'
             }
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
