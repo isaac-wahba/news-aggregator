@@ -11,6 +11,9 @@ export default function AlertView({ alertType, message }: AlertViewProps) {
     <Alert
       style={{
         fontSize: '2rem',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
       }}
       severity={alertType}
     >
