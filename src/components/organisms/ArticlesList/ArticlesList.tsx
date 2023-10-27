@@ -1,6 +1,5 @@
 import { AlertEnum } from '../../../enums/AlertEnum';
 import { Article } from '../../../types/Types';
-import NoArticlesView from '../../atoms/NoArticlesView/NoArticlesView';
 import AlertView from '../../molecules/AlertView/AlertView';
 import ArticleCard from '../../molecules/ArticleCard/ArticleCard';
 import './ArticlesList.css';
