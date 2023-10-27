@@ -23,9 +23,9 @@ import { filterFetchNewsFunction } from '../../helpers/getFetchFunction';
 import MyPreferencesModal from '../../components/organisms/MyPreferencesModal/MyPreferencesModal';
 import { filterArticles } from '../../helpers/filterArticles';
 import ArticlesList from '../../components/organisms/ArticlesList/ArticlesList';
-
-import NoArticlesView from '../../components/atoms/NoArticlesView/NoArticlesView';
 import LoadingIndicator from '../../components/atoms/LoadingIndicator/LoadingIndicator';
+import AlertView from '../../components/molecules/AlertView/AlertView';
+import { AlertEnum } from '../../enums/AlertEnum';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -185,11 +185,14 @@ function HomePage() {
       <div className="articles-list-container">
         {isLoading ? (
           <>
-            <NoArticlesView message="Loading .." />
+            <AlertView message="Loading .." alertType={AlertEnum.Warning} />
             <LoadingIndicator />
           </>
         ) : hasError ? (
-          <NoArticlesView message="Error loading articles .." />
+          <AlertView
+            message="Error loading articles .."
+            alertType={AlertEnum.Error}
+          />
         ) : (
           <ArticlesList
             articles={articlesToDisplay}
