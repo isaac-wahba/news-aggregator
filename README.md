@@ -2,7 +2,7 @@
 
 Before you run the app, follow these steps:
 
-1. **Create API Keys**:
+1. **Create API Keys from these resources**:
     - [New York Times](https://developer.nytimes.com/)
     - [News API](https://newsapi.org/docs)
     - [The Guardian](https://open-platform.theguardian.com/access/)
@@ -34,7 +34,7 @@ Before you run the app, follow these steps:
    - After successfully building the Docker image, you can run your app in a Docker container using the following command:
 
     ```bash
-    docker run -d -p 3000:3000 --name news-app your-image-name
+    docker run --env-file ./.env -d -p 3000:3000 your-image-name
     ```
 
     Replace `your-image-name` with the name of the Docker image you created.
